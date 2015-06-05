@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Calculator {
 	public Calculator(){
-		
+
 	}
 	/*
 	 * este metodo calcula el seno de un angulo
@@ -19,7 +19,7 @@ public class Calculator {
 	/*
 	 * Escribir todos los números del number al 0 de step en step.
 	 */
-	
+
 	static int[] stepThisNumber(int number, int step) {
 		int[] array;
 		if(number!=0 && step !=0){
@@ -30,11 +30,11 @@ public class Calculator {
 			}
 			//Conversion de arrayList a array
 			array = new int[arrayL.size()];
-		    int i = 0;
-		    for (Integer n1 : arrayL) {
-		        array[i++] = n1;
-		    }
-			
+			int i = 0;
+			for (Integer n1 : arrayL) {
+				array[i++] = n1;
+			}
+
 		}
 		else{
 			array= new int[1];
@@ -46,7 +46,7 @@ public class Calculator {
 	 * Módulo al que se le pasa un número entero del 0 al 20 y devuelve los
 	 * divisores que tiene.
 	 */
-	
+
 	static int[] divisors(int n) {
 		ArrayList<Integer> arrayL = new ArrayList<>();
 		if(n<=20 && n>0){
@@ -58,10 +58,10 @@ public class Calculator {
 			}
 			//Conversion de arrayList a array
 			int[] array = new int[arrayL.size()];
-		    int i = 0;
-		    for (Integer n1 : arrayL) {
-		        array[i++] = n1;
-		    }
+			int i = 0;
+			for (Integer n1 : arrayL) {
+				array[i++] = n1;
+			}
 			return array;
 		}
 		else{
@@ -69,7 +69,7 @@ public class Calculator {
 			return null;
 		}
 	}
-	
+
 	/*
 	 * Toma como parámetros dos listas. La primera con los 6 números de una
 	 * apuesta de la primitiva, y la segunda con los 6 números ganadores. La
@@ -101,37 +101,37 @@ public class Calculator {
 		String numberString = null;
 		//Switch para concatenar en funcion del numero
 		switch(n/10){
-			case 0: numberString = unidades[n%10];
-					break;
-			case 1: 
-					if(n%10 < 6){
-						numberString = otros[n%10];
-					}else if(n%10 >= 6){
-						numberString = "Dieci" + unidades[n%10];
-					};
-					break;
-			case 2:
-					switch(n%10){
-						case 0: numberString = decenas[n/10-2];
-								break;
-						default: numberString = "Veinti" + unidades[n%10].toLowerCase();
-								break;
-					}
-					break;
-			case 3: case 4: case 5: case 6: case 7: case 8: case 9:
-					switch(n%10){
-						case 0: numberString = decenas[n/10-2];
-								break;
-						default: numberString = decenas[n/10-2] + " y " + unidades[n%10].toLowerCase();
-								break;
-					}
-					break;
-			default: numberString = "Numero no valido";
-					break;
+		case 0: numberString = unidades[n%10];
+		break;
+		case 1: 
+			if(n%10 < 6){
+				numberString = otros[n%10];
+			}else if(n%10 >= 6){
+				numberString = "Dieci" + unidades[n%10];
+			};
+			break;
+		case 2:
+			switch(n%10){
+			case 0: numberString = decenas[n/10-2];
+			break;
+			default: numberString = "Veinti" + unidades[n%10].toLowerCase();
+			break;
+			}
+			break;
+		case 3: case 4: case 5: case 6: case 7: case 8: case 9:
+			switch(n%10){
+			case 0: numberString = decenas[n/10-2];
+			break;
+			default: numberString = decenas[n/10-2] + " y " + unidades[n%10].toLowerCase();
+			break;
+			}
+			break;
+		default: numberString = "Numero no valido";
+		break;
 		}
 		return numberString;
 	}
-	
+
 	/*
 	 * este metodo devuelve cierto si el año de la fecha es bisiesto fecha
 	 * dd-MM-yyyy
@@ -151,9 +151,35 @@ public class Calculator {
 	}
 
 	/*
-	 * este metodo calgula la tangente de un angulo
+	 * este metodo calgula la tangente de un angulo?
+	 * creo que comprueba si la fecha que se le pasa es valida
 	 */
 	static boolean isValidDate(String date) {
-		return false;
+		boolean fechaCorrecta = false;
+		try{
+			//Separamos dia, mes y a�o
+			int dia = Integer.parseInt(date.substring(0,2));
+			int mes = Integer.parseInt(date.substring(3,5));
+			int anyo = Integer.parseInt(date.substring(6));
+			//Comprobamos que el a�o es valido, el mes es correcto y que los dias del mes estan bien
+			if(dia <= 31 && dia >= 1 && mes <= 12 && mes >= 1 && anyo >= 1){
+				switch(mes){
+				case 2:
+					if(dia <= 28 && !Calculator.isLeapYear(date) || dia <= 29 && Calculator.isLeapYear(date)){
+						fechaCorrecta = true;
+					}
+				case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+					if(dia <= 31){
+						fechaCorrecta = true;
+					}
+
+				default:
+					if(dia <= 30){
+						fechaCorrecta = true;
+					}
+				}
+			}
+		}catch(RuntimeException e){};
+		return fechaCorrecta;
 	}
 }
