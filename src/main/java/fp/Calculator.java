@@ -1,28 +1,61 @@
 package fp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Calculator {
+	public Calculator(){
+		
+	}
 	/*
 	 * este metodo calcula el seno de un angulo
 	 */
 	static Double sin(double n) {
-		return null;
+		Double seno=(double) Math.round(Math.sin(Math.toRadians(n))*10)/10;
+		return seno;
 	}
 
 	/*
 	 * Escribir todos los números del number al 0 de step en step.
 	 */
+	@SuppressWarnings("null")
 	static int[] stepThisNumber(int number, int step) {
-		return null;
+		int[] array = {0};
+		int y = 0;
+		if(number!=0 && step !=0)
+			for(int x = number-1; x >= 0+step; x -= step){
+				array[y] = x;
+				y++;
+			}
+		return array;
 	}
 
 	/*
 	 * Módulo al que se le pasa un número entero del 0 al 20 y devuelve los
 	 * divisores que tiene.
 	 */
+	@SuppressWarnings("null")
 	static int[] divisors(int n) {
-		return null;
+		ArrayList<Integer> arrayL = new ArrayList<>();
+		int x=0;
+		if(n<=20 && n>0){
+			for (int i = n ; i >= 1 ; i--){
+				if (n % i == 0){
+					arrayL.add(i);
+					x++;	
+				}
+			}
+			int[] array = new int[arrayL.size()];
+		    int i = 0;
+		    for (Integer n1 : arrayL) {
+		        array[i++] = n1;
+		    }
+			return array;
+		}
+		else{
+			System.out.println("Numero fuera de rango.");
+			return null;
+		}
 	}
 	
 	/*
@@ -31,7 +64,11 @@ public class Calculator {
 	 * función debe devolver el número de aciertos.
 	 */
 	static Integer checkMyBet(List<Integer> apuesta, List<Integer> aciertos) {
-		return null;
+		int cont=0;	
+		for(int x=0; x<6; x++)
+			if(apuesta.get(x).equals(aciertos.get(x)))
+				cont++;
+		return cont;
 	}
 
 	/*
